@@ -48,4 +48,11 @@ public class Bank {
     public BankAccount[] getBankAccounts() {
         return bankAccounts;
     }
+
+    public boolean depositMoney(int idBankAccountParam, double amountParam)
+    {
+        //
+
+    }
+
 }
