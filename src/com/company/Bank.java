@@ -54,7 +54,33 @@ public class Bank {
     public boolean depositMoney(int idBankAccountParam, double amountParam)
     {
         //
-
+        BankAccount tempBankAccount;
+        for (int i = 0; i < bankAccountsCreated; i++) {
+            tempBankAccount = bankAccounts[i];
+            if(tempBankAccount.getId()==idBankAccountParam)
+            {
+                tempBankAccount.deposit(amountParam);
+                return true;
+            }
+        }
+        return false;
     }
+    public boolean withdrawMoney(int idBankAccountParam, double amountParam)
+    {
+        BankAccount tempBankAccount;
+        for (int i = 0; i < bankAccountsCreated; i++) {
+            tempBankAccount = bankAccounts[i];
+            if(tempBankAccount.getId()==idBankAccountParam)
+            {
+                if (tempBankAccount.getAccountBalance()>=amountParam)
+                {
+                    tempBankAccount.withdraw(amountParam);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 
 }

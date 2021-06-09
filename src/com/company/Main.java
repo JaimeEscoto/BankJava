@@ -1,11 +1,26 @@
 package com.company;
 
 public class Main {
+    public static void printAccounts(BankAccount[] bankAccounts)
+    {
+        int counter=0;
+        while (counter < bankAccounts.length )
+        {
+            System.out.println("-------------------");
+            System.out.println("Id: "+ bankAccounts[counter].getId() );
+            System.out.println("Owner: "+ bankAccounts[counter].getOwner() );
+            System.out.println("Account Balance: "+ bankAccounts[counter].getAccountBalance() );
+            System.out.println("History: "+ bankAccounts[counter].getHistory() );
 
+
+            counter++;
+        }
+
+    }
     public static void main(String[] args) {
 	// write your code here
 
-        int cantidadCuentas = 1;
+        int cantidadCuentas = 2;
         String nombreBanco = "Banco America";
         boolean flag;
         Bank miBanco =  new Bank(nombreBanco,cantidadCuentas);
@@ -21,14 +36,36 @@ public class Main {
         System.out.println(flag);
 
         BankAccount[] bankAccounts = miBanco.getBankAccounts();
-        int counter=0;
-        while (counter < bankAccounts.length )
-        {
-            System.out.println("Id"+ bankAccounts[counter].getId() );
-            System.out.println("Owner"+ bankAccounts[counter].getOwner() );
 
-            counter++;
+        printAccounts(miBanco.getBankAccounts());
+
+        boolean resultadoDeposito;
+        resultadoDeposito=miBanco.depositMoney(77,100000);
+        if(resultadoDeposito)
+        {
+            System.out.println("Deposito exitoso");
+        }
+        else
+        {
+            System.out.println("Deposito fallido");
         }
 
+
+
+        resultadoDeposito=miBanco.depositMoney(1,555555);
+
+        printAccounts(miBanco.getBankAccounts());
+
+        resultadoDeposito=miBanco.withdrawMoney(1,5000);
+        if(resultadoDeposito)
+        {
+            System.out.println("Retiro exitoso");
+        }
+        else
+        {
+            System.out.println("Retiro fallido");
+        }
+        printAccounts(miBanco.getBankAccounts());
     }
+
 }
