@@ -81,6 +81,43 @@ public class Bank {
         }
         return false;
     }
+    public boolean tranferMoneyBetweenAccounts(int idOriginBankAccountParam, int idDestinationBankAccountParam, double amountParam )
+    {
+        BankAccount tempOriginBankAccount=null;
+        for (int i = 0; i < bankAccountsCreated; i++) {
+            if(bankAccounts[i].getId()==idOriginBankAccountParam)
+            {
+                tempOriginBankAccount=bankAccounts[i];
+            }
+        }
+        if (tempOriginBankAccount==null)
+        {
+            return false;
+        }
+
+        BankAccount tempDestinationBankAccount=null;
+        for (int i = 0; i < bankAccountsCreated; i++) {
+            if(bankAccounts[i].getId()==idDestinationBankAccountParam)
+            {
+                tempDestinationBankAccount=bankAccounts[i];
+            }
+        }
+        if (tempDestinationBankAccount==null)
+        {
+            return false;
+        }
+        boolean withdrawResult;
+        if (tempOriginBankAccount.getCurrency() == tempDestinationBankAccount.getCurrency())
+        {
+            withdrawResult = tempOriginBankAccount.withdraw(amountParam);
+            if(withdrawResult)
+            {
+                tempDestinationBankAccount.deposit(amountParam);
+                return true;
+            }
+        }
+        return false;
+    }
 
 
 }

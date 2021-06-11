@@ -10,6 +10,7 @@ public class Main {
             System.out.println("Id: "+ bankAccounts[counter].getId() );
             System.out.println("Owner: "+ bankAccounts[counter].getOwner() );
             System.out.println("Account Balance: "+ bankAccounts[counter].getAccountBalance() );
+            System.out.println("Currency: "+ bankAccounts[counter].getCurrency() );
             System.out.println("History: "+ bankAccounts[counter].getHistory() );
 
 
@@ -24,47 +25,20 @@ public class Main {
         String nombreBanco = "Banco America";
         boolean flag;
         Bank miBanco =  new Bank(nombreBanco,cantidadCuentas);
+        BankAccount cuenta1 = new BankAccount("Jaime","$");
+        BankAccount cuenta2 = new BankAccount("Lourdes","$");
+        miBanco.addBankAccount(cuenta1);
+        miBanco.addBankAccount(cuenta2);
 
-        BankAccount micuenta1 = new BankAccount("Jaime");
-        flag=miBanco.addBankAccount(micuenta1);
-        System.out.println(flag);
-        //CuentaBancaria micuenta2 = new CuentaBancaria("Lourdes");
-        flag=miBanco.addBankAccount("Lourdes");
-        System.out.println(flag);
-        BankAccount micuenta3 = new BankAccount("Gabriel");
-        flag=miBanco.addBankAccount(micuenta3);
-        System.out.println(flag);
-
-        BankAccount[] bankAccounts = miBanco.getBankAccounts();
-
+        miBanco.depositMoney(1,100);
+        miBanco.depositMoney(0,500);
         printAccounts(miBanco.getBankAccounts());
-
-        boolean resultadoDeposito;
-        resultadoDeposito=miBanco.depositMoney(77,100000);
-        if(resultadoDeposito)
+        boolean result=miBanco.tranferMoneyBetweenAccounts(5,1,1000);
+        if(!result)
         {
-            System.out.println("Deposito exitoso");
-        }
-        else
-        {
-            System.out.println("Deposito fallido");
+            System.out.println("Error en la transferencia");
         }
 
-
-
-        resultadoDeposito=miBanco.depositMoney(1,555555);
-
-        printAccounts(miBanco.getBankAccounts());
-
-        resultadoDeposito=miBanco.withdrawMoney(1,5000);
-        if(resultadoDeposito)
-        {
-            System.out.println("Retiro exitoso");
-        }
-        else
-        {
-            System.out.println("Retiro fallido");
-        }
         printAccounts(miBanco.getBankAccounts());
     }
 

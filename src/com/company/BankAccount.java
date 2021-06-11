@@ -5,13 +5,23 @@ public class BankAccount {
     private String owner;
     private double accountBalance;
     private String history;
+    private String currency;
 
     public BankAccount(String ownerParam)
     {
         owner=ownerParam;
         accountBalance=0.0;
         history="Account Created ";
+        currency = "L";
     }
+    public BankAccount(String ownerParam, String currencyParam)
+    {
+        owner=ownerParam;
+        accountBalance=0.0;
+        history="Account Created ";
+        currency = currencyParam;
+    }
+
 
     public double getAccountBalance() {
         return accountBalance;
@@ -65,5 +75,9 @@ public class BankAccount {
 
     public int getId() {
         return id;
+    }
+
+    public String getCurrency() {
+        return currency;
     }
 }
