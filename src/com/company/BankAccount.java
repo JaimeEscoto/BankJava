@@ -19,7 +19,14 @@ public class BankAccount {
         owner=ownerParam;
         accountBalance=0.0;
         history="Account Created ";
-        currency = currencyParam;
+        if(currencyParam=="L" || currencyParam=="$") {
+            currency = currencyParam;
+        }
+        else
+        {
+            currency = "L";
+
+        }
     }
 
 

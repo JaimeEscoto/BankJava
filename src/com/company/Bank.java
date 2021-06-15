@@ -7,6 +7,7 @@ public class Bank {
     private BankAccount[] bankAccounts;
     private int bankAccountsQty;
     private int bankAccountsCreated;
+    private double coversionFactor;
 
 
     public Bank(String BankNameParam, int bankAccountsQtyParam)
@@ -15,6 +16,7 @@ public class Bank {
        bankAccounts = new BankAccount[bankAccountsQtyParam];
        bankAccountsQty=bankAccountsQtyParam;
        bankAccountsCreated=0;
+       coversionFactor=24.18;
     }
 
     public String getBankName() {
@@ -81,32 +83,41 @@ public class Bank {
         }
         return false;
     }
+    private boolean tranferMoneyBetweenAccounts(BankAccount origin, BankAccount destination, double amountParam)
+    {
+        boolean withdrawResult = origin.withdraw(amountParam);
+        if (withdrawResult)
+        {
+            if (origin.getCurrency()=="L")
+            {
+                destination.deposit(amountParam/coversionFactor);
+            }
+            else
+            {
+                destination.deposit(amountParam*coversionFactor);
+            }
+            return true;
+        }
+        return false;
+    }
     public boolean tranferMoneyBetweenAccounts(int idOriginBankAccountParam, int idDestinationBankAccountParam, double amountParam )
     {
-        BankAccount tempOriginBankAccount=null;
-        for (int i = 0; i < bankAccountsCreated; i++) {
-            if(bankAccounts[i].getId()==idOriginBankAccountParam)
-            {
-                tempOriginBankAccount=bankAccounts[i];
-            }
-        }
+        BankAccount tempOriginBankAccount = findBankAcountById(idOriginBankAccountParam);
+
         if (tempOriginBankAccount==null)
         {
             return false;
         }
 
-        BankAccount tempDestinationBankAccount=null;
-        for (int i = 0; i < bankAccountsCreated; i++) {
-            if(bankAccounts[i].getId()==idDestinationBankAccountParam)
-            {
-                tempDestinationBankAccount=bankAccounts[i];
-            }
-        }
+        BankAccount tempDestinationBankAccount= findBankAcountById(idDestinationBankAccountParam);
+
         if (tempDestinationBankAccount==null)
         {
             return false;
         }
+
         boolean withdrawResult;
+
         if (tempOriginBankAccount.getCurrency() == tempDestinationBankAccount.getCurrency())
         {
             withdrawResult = tempOriginBankAccount.withdraw(amountParam);
@@ -116,8 +127,26 @@ public class Bank {
                 return true;
             }
         }
+        else
+        {
+            return tranferMoneyBetweenAccounts(tempOriginBankAccount,tempDestinationBankAccount,amountParam);
+        }
         return false;
     }
+    private BankAccount findBankAcountById(int bankAccountIdParam)
+    {
+        BankAccount temporalBankAccount=null;
+        for (int i = 0; i < bankAccountsCreated; i++) {
+            if( bankAccounts[i].getId()==bankAccountIdParam)
+            {
+                temporalBankAccount = bankAccounts[i];
+                return temporalBankAccount;
+            }
+
+        }
+        return null;
+    }
+
 
 
 }
