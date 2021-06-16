@@ -1,5 +1,7 @@
 package com.company;
 
+import org.jetbrains.annotations.Nullable;
+
 public class Bank {
 
     private String bankName;
@@ -133,7 +135,8 @@ public class Bank {
         }
         return false;
     }
-    private BankAccount findBankAcountById(int bankAccountIdParam)
+    private @Nullable
+    BankAccount findBankAcountById(int bankAccountIdParam)
     {
         BankAccount temporalBankAccount=null;
         for (int i = 0; i < bankAccountsCreated; i++) {
